@@ -1,4 +1,4 @@
-<Fluid>
+<Fluid id="0">
 	<DT>			0.003		</DT>
 	<SimScale>		0.005		</SimScale>
 	<Viscosity>	0.35		</Viscosity>

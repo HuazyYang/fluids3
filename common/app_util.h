@@ -113,7 +113,7 @@
 
 	// From app_opengl.h or app_directx.h
 	// DX/GL Device and Context are provided outside of app_util.	
-	extern void app_printf ( char* format, ... );
+	extern void app_printf ( const char* format, ... );
 	extern char app_getch ();
 	#ifdef USE_DX
 		#include <d3d11.h>
@@ -130,7 +130,7 @@
 		extern int checkSHADER ( HRESULT hr, ID3D10Blob* blob );			
 		#define IDX_NULL	0xFFFFFFFF		// DirectX - cut index
 	#else
-		#include "GLEW\glew.h"
+		#include <glad/gl.h>
 		typedef	GLuint			BUF;		
 		typedef	GLuint			TEX;
 		extern void checkGL( char* msg );

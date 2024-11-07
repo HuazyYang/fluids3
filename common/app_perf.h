@@ -1,4 +1,3 @@
-
 //----------------------------------------------------------------------------------
 // File:   app_perf.h
 // Author: Rama Hoetzlein
@@ -153,10 +152,10 @@ extern "C" void PERF_SET ( bool cpu, int lev, bool gpu, char* fname );
 	//
 	// 
 	// 32/64-Bit Integer Ranges
-	//    32-bit Integer Min:              –2,147,483,648   ( 4 bytes )
+	//    32-bit Integer Min:              ï¿½2,147,483,648   ( 4 bytes )
 	//    32-bit Integer Max:               2,147,483,647 
 	//    SJT 2005:                     4,611,340,800,000
-	//    64-bit Integer Min:  –9,223,372,036,854,775,808 
+	//    64-bit Integer Min:  ï¿½9,223,372,036,854,775,808 
 	//    64-bit Integer Max:   9,223,372,036,854,775,807	( 8 bytes )
 	//
 	// SJT Range

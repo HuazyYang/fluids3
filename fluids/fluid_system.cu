@@ -4,11 +4,7 @@
 #include <cstdio>
 #include <string.h>
 
-#if defined(__APPLE__) || defined(MACOSX)
-	#include <GLUT/glut.h>
-#else
-	#include <GL/glut.h>
-#endif
+#include <glad/gl.h>
 #include <cuda_gl_interop.h>
 
 #include "fluid_system_kern.cu"

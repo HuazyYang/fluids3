@@ -2268,7 +2268,7 @@ void FluidSystem::SetupDefaultParams ()
 
 int FluidSystem::ParseXML ( std::string name, int id, bool bStart )
 {
-	xml.setBase ( name, id );
+	xml.setBase ( "//" + name + "[@id='" + std::to_string(id) + "']" );
 
 	xml.assignValueD ( &m_DT, "DT" );
 	xml.assignValueStr ( mSceneName, "Name" );

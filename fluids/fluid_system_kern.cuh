@@ -110,7 +110,9 @@
 
 	// Prefix Sum defines - 16 banks on G80
 	#define NUM_BANKS		16
-	#define LOG_NUM_BANKS	 4
+#ifndef LOG_NUM_BANKS
+#define LOG_NUM_BANKS	 4
+#endif
 
 
 	#ifndef CUDA_KERNEL		

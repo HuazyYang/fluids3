@@ -30,17 +30,17 @@
  *
  */
 
-#include "GLEW\glew.h"
+#include <glad/gl.h>
 
 #define GLCOMPAT
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "GLEW\glew.h"
+#include <glad/gl.h>
 #ifdef _WIN32
-	#include "GLEW\wglew.h"
+#include <glad/wgl.h>
 #else
-	#include "GLEW\glxew.h"
+#include <glad/glx.h>
 #endif
 
 #include <windows.h>
@@ -50,8 +50,6 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <stdio.h>
-
-#include <GL/gl.h>
 
 extern void display ();
 extern void keyboard_func (unsigned char, int, int);
@@ -82,7 +80,7 @@ int			mState;
 FILE*		m_OutCons = 0x0;
 
 
-void app_printf ( char* format, ... )
+void app_printf ( const char* format, ... )
 {
 	// Note: This is the >only< way to do this. There is no general way to
 	// pass on all the arguments from one ellipsis function to another.
@@ -93,7 +91,7 @@ void app_printf ( char* format, ... )
 	va_end (argptr);			
 	fflush ( m_OutCons );
 }
-void app_printEXIT ( char* format, ... )
+void app_printEXIT (const char* format, ... )
 {
 	// Note: This is the >only< way to do this. There is no general way to
 	// pass on all the arguments from one ellipsis function to another.
@@ -131,7 +129,6 @@ void checkGL( char* msg )
 
 
 //------------------------------------------------------------------------------
-
 void APIENTRY glErrorCallback (  GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, GLvoid* userParam)
 {
     char *strSource = "0";
@@ -193,23 +190,22 @@ bool InitGL ()
 
 	g_hDC = GetDC( g_hWnd );
 
-	// Create default (non-AA) context
+    gladLoaderLoadWGL(g_hDC);
+
+    // Create default (non-AA) context
 	pixelFormat = ChoosePixelFormat ( g_hDC, &pfd );
     SetPixelFormat( g_hDC, pixelFormat, &pfd);
     g_hRC = wglCreateContext( g_hDC );
     wglMakeCurrent( g_hDC, g_hRC );
 
-	// Make sure Glew is loaded - must have context to load
-	glewInit();
-
-	if ( wglChoosePixelFormatARB ( g_hDC, iAttributes, fAttributes, 1, &pixelFormat, &numFormats ) ) {
+/* 	if ( wglChoosePixelFormatARB ( g_hDC, iAttributes, fAttributes, 1, &pixelFormat, &numFormats ) ) {
 		// Use multi-sampling
 		SetPixelFormat( g_hDC, pixelFormat, &pfd);
 		g_hRC = wglCreateContext( g_hDC );
 		wglMakeCurrent( g_hDC, g_hRC );
 
 		glEnable (GL_MULTISAMPLE_ARB);
-	} 
+	}  */
 
 
 	// calling glewinit NOW because the inside glew, there is mistake to fix...
@@ -251,6 +247,10 @@ bool InitGL ()
 		} else {
             wglDeleteContext( g_hRC );
             g_hRC = hRC;
+
+            // Make sure Glew is loaded - must have context to load
+            gladLoaderLoadGL();
+
 #ifdef _DEBUG
             if(!glDebugMessageCallbackARB)
             {
@@ -259,7 +259,7 @@ bool InitGL ()
             }
             if(glDebugMessageCallbackARB)
             {
-                glDebugMessageCallbackARB( glErrorCallback, NULL );
+                glDebugMessageCallbackARB( (GLDEBUGPROCARB)glErrorCallback, NULL );
                 glDebugMessageControlARB(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_HIGH_ARB, 0, NULL, GL_TRUE);
             }
 #endif
@@ -380,11 +380,12 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	InitWindow ( hInstance, nCmdShow );
 
 	// Initialize opengl context
-    if ( InitGL() ) { 
+    if ( InitGL() ) {
 
-		wglSwapIntervalEXT(0);
+		if(GLAD_WGL_EXT_swap_control)
+			wglSwapIntervalEXT(0);
 
-		initialize ( );		// User-init
+        initialize ( );		// User-init
 
         // Message pump        
 		while( WM_QUIT != msg.message ) 

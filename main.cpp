@@ -313,8 +313,10 @@ void reshape ( int width, int height )
   // set window height and width
   window_width  = (float) width;
   window_height = (float) height;
-  glViewport( 0, 0, width, height );    
-  setview2D ( width, height );
+  if(glViewport) {
+  	glViewport( 0, 0, width, height );    
+  	setview2D ( width, height );
+  }
 }
 
 void UpdateEmit ()

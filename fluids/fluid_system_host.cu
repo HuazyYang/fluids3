@@ -51,8 +51,8 @@
 #include <stdio.h>
 #include <math.h>
 
-extern void app_printf ( char* format, ... );
-extern void app_printEXIT ( char* format, ... );
+extern void app_printf ( const char* format, ... );
+extern void app_printEXIT ( const char* format, ... );
 extern char app_getch ();
 
 #include "fluid_system_host.cuh"		
@@ -63,13 +63,13 @@ FluidParams*	mcuda;		// GPU Fluid params
 
 bufList			fbuf;		// GPU Particle buffers
 
-bool cudaCheck ( cudaError_t status, char* msg )
+bool cudaCheck ( cudaError_t status, const char* msg )
 {
 	if ( status != cudaSuccess ) {
 		app_printf ( "CUDA ERROR: %s\n", cudaGetErrorString ( status ) );
 		app_getch ();
 
-		MessageBox ( NULL, cudaGetErrorString ( status), msg, MB_OK );
+		MessageBoxA ( NULL, cudaGetErrorString ( status), msg, MB_OK );
 		return false;
 	} else {
 		//app_printf ( "%s. OK.\n", msg );
@@ -81,7 +81,7 @@ bool cudaCheck ( cudaError_t status, char* msg )
 void cudaExit ()
 {
 	int argc = 1;	
-	char* argv[] = {"fluids"};
+	const char* argv[] = {"fluids"};
 
 	cudaDeviceReset();
 }

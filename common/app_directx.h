@@ -109,7 +109,7 @@ static std::string utf16ToUTF8( const std::wstring &s )
 	return std::string( &buf[0] );
 }
 
-void app_printf ( char* format, ... )
+void app_printf ( const char* format, ... )
 {
 	// Note: This is the >only< way to do this. There is no general way to
 	// pass on all the arguments from one ellipsis function to another.

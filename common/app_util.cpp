@@ -75,6 +75,7 @@
  */
 
 #include "app_util.h"
+#include <cmath>
 
 // Globals
 nvDraw	g_2D;
@@ -206,14 +207,17 @@ bool strSub ( std::string str, int first, int cnt, std::string cmp )
 #include <algorithm>
 #include <cctype>
 std::string strLTrim(std::string str) {
-        str.erase(str.begin(), std::find_if(str.begin(), str.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
-        return str;
+    str.erase(str.begin(), std::find_if(str.begin(), str.end(), [](const char &c)
+                                        { return !std::isspace(c); }));
+    return str;
 }
 
 // trim from end
 std::string strRTrim(std::string str) {
-        str.erase(std::find_if(str.rbegin(), str.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), str.end());
-        return str;
+    str.erase(std::find_if(str.rbegin(), str.rend(), [](const char &c)
+                           { return !std::isspace(c); }).base(),
+              str.end());
+    return str;
 }
 
 // trim from both ends
@@ -1004,10 +1008,6 @@ bool nvGui::guiChanged ( int n )
 		return true;
 	}
 	return false;
-}
-
-inline float log2 ( double x ) {
-	return log(x)/log(2.0);
 }
 
 void nvGui::Draw ()
