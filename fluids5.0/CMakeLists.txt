@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.5)
 set(PROJNAME fluids5.0)
 Project(${PROJNAME})
 Message(STATUS "-------------------------------")
@@ -94,9 +94,9 @@ file(GLOB CUDA_FILES RELATIVE "${BASE_DIRECTORY}" src/*.cu src/*.cuh)
 message ( STATUS "Build CUDA kernels: ${CUDA_FILES}" )
 
 if ( USE_DEBUG_PTX )
-	_COMPILEPTX ( SOURCES ${CUDA_FILES} TARGET_PATH ${EXECUTABLE_OUTPUT_PATH} GENERATED CUDA_PTX GENPATHS CUDA_PTX_PATHS INCLUDE "${CMAKE_CURRENT_SOURCE_DIR},${GVDB_INCLUDE_DIR}" OPTIONS --ptx -arch=${CUDA_ARCH_BIN} -code=${CUDA_ARCH_PTX} -dc -Xptxas -v -G -g --use_fast_math --maxrregcount=32 )
+	_COMPILEPTX ( SOURCES ${CUDA_FILES} TARGET_PATH ${EXECUTABLE_OUTPUT_PATH} GENERATED CUDA_PTX GENPATHS CUDA_PTX_PATHS INCLUDE "${CMAKE_CURRENT_SOURCE_DIR},${GVDB_INCLUDE_DIR}" OPTIONS --ptx -allow-unsupported-compiler -arch=${CUDA_ARCH_BIN} -code=${CUDA_ARCH_PTX} -dc -Xptxas -v -G -g --use_fast_math --maxrregcount=32 )
 else()
-	_COMPILEPTX ( SOURCES ${CUDA_FILES} TARGET_PATH ${EXECUTABLE_OUTPUT_PATH} GENERATED CUDA_PTX GENPATHS CUDA_PTX_PATHS INCLUDE "${CMAKE_CURRENT_SOURCE_DIR},${GVDB_INCLUDE_DIR}" OPTIONS --ptx -arch=${CUDA_ARCH_BIN} -code=${CUDA_ARCH_PTX} -dc -Xptxas -v -O3 --use_fast_math --maxrregcount=32 )
+	_COMPILEPTX ( SOURCES ${CUDA_FILES} TARGET_PATH ${EXECUTABLE_OUTPUT_PATH} GENERATED CUDA_PTX GENPATHS CUDA_PTX_PATHS INCLUDE "${CMAKE_CURRENT_SOURCE_DIR},${GVDB_INCLUDE_DIR}" OPTIONS --ptx -allow-unsupported-compiler -arch=${CUDA_ARCH_BIN} -code=${CUDA_ARCH_PTX} -dc -Xptxas -v -O3 --use_fast_math --maxrregcount=32 )
 endif()
 
 #####################################################################################
