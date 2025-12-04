@@ -20,7 +20,7 @@ Hardware: **GeForce RTX 4090** <br>
 (same hardware & num particles for all versions)<br>
 
 ## How to Build
-I recommend you use build the latest Fluids v5.0.<br>
+I recommend you build the latest Fluids v5.0.<br>
 Run CMake on the Fluids v5.0 folder.<br>
 The CUDA Toolchain must be setup correctly for your Graphics Cards model, CUDA Toolkit version and NVIDIA Driver.<br>
 Set the CUDA_ARCH_BIN and CUDA_ARCH_PTX cmake variables to match your hardware.<br>
