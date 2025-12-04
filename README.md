@@ -19,6 +19,14 @@ Hardware: **GeForce RTX 4090** <br>
 - Fluids ver 5.0 ➔ 160 fps <br>
 (same hardware & num particles for all versions)<br>
 
+## How to Build
+I recommend you use build the latest Fluids v5.0.<br>
+Run CMake on the Fluids v5.0 folder.<br>
+The CUDA Toolchain must be setup correctly for your Graphics Cards model, CUDA Toolkit version and NVIDIA Driver.<br>
+Set the CUDA_ARCH_BIN and CUDA_ARCH_PTX cmake variables to match your hardware.<br>
+For example: GeForce RTX 5060, CUDA 13.0, NV Driver 581.80 => CUDA_ARCH_BIN=compute_120, CUDA_ARCH_PTX=sm_120<br>
+Use ChatGPT to help install the proper toolchain for your specific hardware, or if you don't know what I'm talking about.<br>
+
 ## History
 
 **Fluids 5.0**
@@ -102,11 +110,6 @@ Hardware: **GeForce RTX 4090** <br>
 
 ---
 
-## How to Build
-Fluids 1, 2, and 3.0 did not use CMake. VS solutions are provided.<br>
-Fluids >3.2 use Cmake.<br>
-Each Fluids version has its own CMakeLists.txt.<br>
-Run Cmake on the version you want. 
 
 ## Keyboard commands (Fluids 3.0):
 ```
